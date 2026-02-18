@@ -1,84 +1,75 @@
 package com.cmpt276.staffratings;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.persistence.*; //the jpa annotation
+import jakarta.validation.constraints.*; //for validation
 
-import java.time.LocalDateTime;
+import java.time.LocalDateTime; //to get time
 
-/**
- * Entity representing a staff rating.
- * This maps to a database table automatically.
- */
-@Entity // Marks this class as a JPA entity (database table)
-@Table(name = "staff_ratings") // Explicit table name
+
+@Entity //Marks this class as a JPA entity (database table)
+@Table(name = "staff_ratings") //the explicit table name
 public class StaffRating implements StaffMemberProfile {
 
-    // ========================
-    // Primary Key
-    // ========================
+    
 
     @Id // Marks as primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-increment
     private Long id;
 
-    // ========================
+    
     // Required Name
-    // ========================
+   
 
     @NotBlank(message = "Name is required") // Cannot be null or empty
     @Size(min = 2, max = 100, message = "Name must be between 2 and 100 characters")
     private String name;
 
-    // ========================
-    // Email (Required + Valid + Unique)
-    // ========================
+    
+    // now for Email 
+ 
 
     @NotBlank(message = "Email is required")
     @Email(message = "Must be a valid email address")
-    @Column(unique = true) // Enforces uniqueness at DB level
+    @Column(unique = true) 
     private String email;
 
-    // ========================
-    // Role Type (Enum)
-    // ========================
+  
+    //the Role Type (Enum)
+    
 
     @Enumerated(EnumType.STRING) // Store enum as String in DB
     @NotNull(message = "Role is required")
     private RoleType roleType;
 
-    // ========================
+    
     // Scores (1–10 required)
-    // ========================
+    
 
-    @Min(value = 1, message = "Clarity must be at least 1")
-    @Max(value = 10, message = "Clarity cannot exceed 10")
+    @Min(value = 1, message = "Clarity has to be at least 1")
+    @Max(value = 10, message = "Clarity cannot be more than 10")
     private int clarity;
 
-    @Min(value = 1, message = "Niceness must be at least 1")
-    @Max(value = 10, message = "Niceness cannot exceed 10")
+    @Min(value = 1, message = "Niceness has to be at least 1")
+    @Max(value = 10, message = "Niceness cannot be more than 10")
     private int niceness;
 
-    @Min(value = 1, message = "Knowledge must be at least 1")
-    @Max(value = 10, message = "Knowledge cannot exceed 10")
+    @Min(value = 1, message = "Knowledge has to be at least 1")
+    @Max(value = 10, message = "Knowledge cannot be more than 10")
     private int knowledgeableScore;
 
-    // ========================
-    // Optional Comment
-    // ========================
+    
+    // for the Comment
+    
 
     @Size(max = 500, message = "Comment cannot exceed 500 characters")
     private String comment;
 
-    // ========================
-    // Timestamps
-    // ========================
+   
 
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private LocalDateTime createdAt; //creation timestamp
+    private LocalDateTime updatedAt; //update timestamp if updated
 
-    // ========================
-    // Lifecycle Hooks
-    // ========================
+  
 
     @PrePersist
     protected void onCreate() {
@@ -91,18 +82,16 @@ public class StaffRating implements StaffMemberProfile {
         updatedAt = LocalDateTime.now();
     }
 
-    // ========================
-    // Polymorphic Method
-    // ========================
+   
+    // using Polymorphic Method
+  
 
     @Override
     public String displayTitle() {
         return roleType + ": " + name;
     }
 
-    // ========================
-    // Getters and Setters
-    // ========================
+ 
 
     public Long getId() { return id; }
 
@@ -138,11 +127,8 @@ public class StaffRating implements StaffMemberProfile {
 
     public LocalDateTime getUpdatedAt() { return updatedAt; }
 
-    /**
-     * Calculates overall average score.
-     * Used in index page.
-     */
-    public double getOverallScore() {
-        return (clarity + niceness + knowledgeableScore) / 3.0;
+   
+    public double getOverallScore() { //to get the overall score
+        return (clarity + niceness + knowledgeableScore) / 3.0; //calculats it
     }
 }
