@@ -7,3 +7,12 @@ I used a mix of slice and integration tests as per asked for in the assignment:
 - Web/controller tests: @SpringBootTest + @AutoConfigureMockMvc integration tests.
 
 I also used integration style controller tests to avoid Mockito/ByteBuddy compatibility issues with Java 25.
+
+## How to test
+
+To Run all tests
+
+From the project root:
+
+./mvnw test
+
