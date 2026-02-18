@@ -11,34 +11,43 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class StaffRatingValidationTest {
+class StaffRatingValidationTest { //the validation test class
 
-    private Validator validator;
+    private Validator validator; //the validator instance
 
     @BeforeEach
     void setUp() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        validator = factory.getValidator();
+        
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory(); //builds factory
+        validator = factory.getValidator(); //gets the validator
+        
     }
 
     @Test
     void nameCannotBeBlank() {
-        StaffRating rating = new StaffRating();
+        
+        StaffRating rating = new StaffRating(); //
         rating.setName(""); // invalid
         rating.setEmail("test@test.com");
-        rating.setRoleType(RoleType.INSTRUCTOR); // REQUIRED
+        rating.setRoleType(RoleType.INSTRUCTOR); 
         rating.setClarity(5);
         rating.setNiceness(5);
         rating.setKnowledgeableScore(5);
 
         Set<ConstraintViolation<StaffRating>> violations =
-                validator.validate(rating);
+                validator.validate(rating); //runs the validation
 
-        assertFalse(violations.isEmpty());
+        assertFalse(violations.isEmpty()); //expects errors
+
+        
     }
 
+
+    
     @Test
-    void validRatingPassesValidation() {
+    void validRatingPassesValidation() { //
+
+        
         StaffRating rating = new StaffRating();
         rating.setName("John Doe");
         rating.setEmail("john@test.com");
@@ -51,5 +60,7 @@ class StaffRatingValidationTest {
                 validator.validate(rating);
 
         assertTrue(violations.isEmpty());
+
+        
     }
 }
