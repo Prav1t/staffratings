@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Staff Ratings</title>
+</head>
+<body>
+
+<h1>All Staff Ratings</h1>
+
+<a th:href="@{/staff/new}">Add New Rating</a>
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Overall Score</th>
+        <th>Actions</th>
+    </tr>
+
+    <tr th:each="rating : ${ratings}">
+        <td th:text="${rating.name}"></td>
+        <td th:text="${rating.displayTitle()}"></td>
+        <td th:text="${(rating.clarity + rating.niceness + rating.knowledgeableScore) / 3}"></td>
+        <td>
+            <a th:href="@{'/staff/' + ${rating.id}}">View</a>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

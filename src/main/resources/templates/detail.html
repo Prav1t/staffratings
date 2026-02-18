@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Staff Detail</title>
+</head>
+<body>
+
+<h1>Staff Detail</h1>
+
+<p><strong>Name:</strong> <span th:text="${rating.name}"></span></p>
+<p><strong>Email:</strong> <span th:text="${rating.email}"></span></p>
+<p><strong>Role:</strong> <span th:text="${rating.displayTitle()}"></span></p>
+<p><strong>Clarity:</strong> <span th:text="${rating.clarity}"></span></p>
+<p><strong>Niceness:</strong> <span th:text="${rating.niceness}"></span></p>
+<p><strong>Knowledgeable:</strong> <span th:text="${rating.knowledgeableScore}"></span></p>
+<p><strong>Comment:</strong> <span th:text="${rating.comment}"></span></p>
+
+<a th:href="@{'/staff/edit/' + ${rating.id}}">Edit</a>
+<a th:href="@{'/staff/delete/' + ${rating.id}}">Delete</a>
+<br><br>
+<a th:href="@{/staff}">Back to List</a>
+
+</body>
+</html>
